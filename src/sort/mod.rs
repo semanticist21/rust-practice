@@ -53,7 +53,7 @@ pub fn insertion_sort(arr: &mut [i64]) -> &[i64] {
 }
 
 #[test]
-pub fn test_bubble() {
+fn test_bubble() {
     let mut test_arr: [i64; 12] = [9, 8, 7, 6, 5, 4, 3, 2, 1, 11, 13, 4];
 
     bubble_sort(&mut test_arr);
@@ -61,7 +61,7 @@ pub fn test_bubble() {
 }
 
 #[test]
-pub fn test_sort() {
+fn test_sort() {
     let mut test_arr: [i64; 12] = [9, 8, 7, 6, 5, 4, 3, 2, 1, 11, 13, 4];
     selection_sort(&mut test_arr);
 
@@ -69,7 +69,7 @@ pub fn test_sort() {
 }
 
 #[test]
-pub fn test_insertion() {
+fn test_insertion() {
     let mut test_arr: [i64; 12] = [9, 8, 7, 6, 5, 4, 3, 2, 1, 11, 13, 4];
     insertion_sort(&mut test_arr);
 
