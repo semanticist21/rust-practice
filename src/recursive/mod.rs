@@ -1,3 +1,5 @@
+use std::collections::HashSet;
+
 // can get upstairs at maximum 3
 // getting the number of possible routes
 pub fn get_stairs(num_of_stairs: u32) -> u32 {
@@ -25,6 +27,14 @@ pub fn get_anagram(word: String) -> Vec<String> {
         return vec![word];
     }
 
+    //remove duplicate chars
+    let word = word
+        .chars()
+        .into_iter()
+        .collect::<HashSet<char>>()
+        .into_iter()
+        .collect::<String>();
+
     let last_char = word.chars().last().unwrap();
     let other_chars = word
         .chars()
@@ -45,13 +55,13 @@ pub fn get_anagram(word: String) -> Vec<String> {
             result.push(new_word.into_iter().collect::<String>());
         }
     }
- 
+
     result
 }
 
 #[test]
 fn test_get_anagram() {
-    let test_str = "abcdefghij".to_string();
+    let test_str = "abcdefghijj".to_string();
 
     let result = get_anagram(test_str);
     println!("{:?}", result.len());
