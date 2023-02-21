@@ -1,4 +1,4 @@
-pub fn bubble_sort(arr: &mut [i64]) -> &[i64] {
+pub fn bubble_sort(arr: &mut [u8]) -> &[u8] {
     let mut sorted = false;
     let loop_len = arr.len() - 1;
 
@@ -16,7 +16,7 @@ pub fn bubble_sort(arr: &mut [i64]) -> &[i64] {
     arr
 }
 
-pub fn selection_sort(arr: &mut [i64]) -> &[i64] {
+pub fn selection_sort(arr: &mut [u8]) -> &[u8] {
     let loop_len = arr.len();
 
     for i in 0..loop_len {
@@ -30,7 +30,7 @@ pub fn selection_sort(arr: &mut [i64]) -> &[i64] {
     arr
 }
 
-pub fn insertion_sort(arr: &mut [i64]) -> &[i64] {
+pub fn insertion_sort(arr: &mut [u8]) -> &[u8] {
     let loop_size = arr.len();
 
     for i in 1..loop_size {
@@ -54,7 +54,7 @@ pub fn insertion_sort(arr: &mut [i64]) -> &[i64] {
 
 #[test]
 fn test_bubble() {
-    let mut test_arr: [i64; 12] = [9, 8, 7, 6, 5, 4, 3, 2, 1, 11, 13, 4];
+    let mut test_arr: [u8; 12] = _get_test_arr();
 
     bubble_sort(&mut test_arr);
     println!("{:?}", test_arr);
@@ -62,7 +62,7 @@ fn test_bubble() {
 
 #[test]
 fn test_sort() {
-    let mut test_arr: [i64; 12] = [9, 8, 7, 6, 5, 4, 3, 2, 1, 11, 13, 4];
+    let mut test_arr: [u8; 12] = _get_test_arr();
     selection_sort(&mut test_arr);
 
     println!("{:?}", test_arr);
@@ -70,8 +70,12 @@ fn test_sort() {
 
 #[test]
 fn test_insertion() {
-    let mut test_arr: [i64; 12] = [9, 8, 7, 6, 5, 4, 3, 2, 1, 11, 13, 4];
+    let mut test_arr: [u8; 12] = _get_test_arr();
     insertion_sort(&mut test_arr);
 
     println!("{:?}", test_arr);
+}
+
+fn _get_test_arr() -> [u8; 12] {
+    [9, 8, 7, 6, 5, 4, 3, 2, 1, 11, 13, 4]
 }
