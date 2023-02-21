@@ -1,4 +1,4 @@
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
 
 // can get upstairs at maximum 3
 // getting the number of possible routes
@@ -184,5 +184,69 @@ fn test_get_first_x() {
     let str = "asdasdasda";
 
     let result = get_first_x_idx(str.to_string(), 0);
+    println!("{:?}", result);
+}
+
+pub fn get_max(mut nums: Vec<i32>) -> i32 {
+    if nums.len() == 0 {
+        return 0;
+    }
+
+    if nums.len() == 1 {
+        return nums.pop().unwrap();
+    }
+
+    let last_num = nums.pop().unwrap();
+    let max = get_max(nums);
+
+    if last_num > max {
+        return last_num;
+    } else {
+        return max;
+    }
+}
+
+pub fn get_fibonnachi(idx: u32, mem: &mut HashMap<u32, i64>) -> i64 {
+    match idx {
+        1 => 0,
+        2 => 1,
+        3 => 1,
+        _ => {
+            let find_result = mem.get(&idx);
+            if let Some(result) = find_result {
+                return *result;
+            } else {
+                let result = get_fibonnachi(idx - 1, mem) + get_fibonnachi(idx - 2, mem);
+                mem.insert(idx, result);
+                result
+            }
+        }
+    }
+}
+
+pub fn get_fibonnachi_hash(idx: u32, mem: &mut HashMap<u32, i64>) -> i64 {
+    if mem.len() < 3 {
+        mem.insert(0, 0);
+        mem.insert(1, 1);
+        mem.insert(2, 1);
+        mem.insert(3, 2);
+    }
+
+    if let None = mem.get(&idx) {
+        let value = get_fibonnachi(idx - 1, mem) + get_fibonnachi(idx - 2, mem);
+        mem.insert(idx, value);
+    }
+
+    *mem.get(&idx).unwrap()
+}
+
+#[test]
+fn test_fibbonachi() {
+    let mut map = HashMap::new();
+    let result = get_fibonnachi(66, &mut map);
+    println!("{:?}", result);
+
+    let mut map = HashMap::new();
+    let result = get_fibonnachi_hash(66, &mut map);
     println!("{:?}", result);
 }

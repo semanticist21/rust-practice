@@ -1,5 +1,3 @@
-use std::sync::Arc;
-
 pub struct Queue<T> {
     data: Vec<T>,
 }
