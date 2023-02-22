@@ -242,11 +242,9 @@ pub fn get_fibonnachi_hash(idx: u32, mem: &mut HashMap<u32, i64>) -> i64 {
 
 #[test]
 fn test_fibbonachi() {
-    let mut map = HashMap::new();
-    let result = get_fibonnachi(66, &mut map);
+    let result = get_fibonnachi(66, &mut HashMap::new());
     println!("{:?}", result);
 
-    let mut map = HashMap::new();
-    let result = get_fibonnachi_hash(66, &mut map);
+    let result = get_fibonnachi_hash(66, &mut HashMap::new());
     println!("{:?}", result);
 }

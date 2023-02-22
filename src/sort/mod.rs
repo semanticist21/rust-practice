@@ -79,3 +79,76 @@ fn test_insertion() {
 fn _get_test_arr() -> [u8; 12] {
     [9, 8, 7, 6, 5, 4, 3, 2, 1, 11, 13, 4]
 }
+
+#[derive(Debug)]
+struct QuickSorter {
+    _arr: Box<[u32]>,
+}
+
+impl QuickSorter {
+    pub fn _new(arr: Box<[u32]>) -> Self {
+        QuickSorter { _arr: arr }
+    }
+
+    pub fn _quick_sort(&mut self, left_index: usize, right_index: usize) {
+        if left_index >= right_index {
+            return;
+        }
+
+        let new_pivot_index = self._sort_partition(left_index, right_index);
+
+        if new_pivot_index == 0 {
+            return;
+        }
+
+        self._quick_sort(left_index, new_pivot_index - 1);
+        self._quick_sort(new_pivot_index + 1, right_index);
+    }
+
+    fn _sort_partition(&mut self, mut left_index: usize, mut right_index: usize) -> usize {
+        let arr = &mut self._arr;
+
+        let pivot_index = right_index;
+        let pivot = arr[pivot_index];
+
+        right_index -= 1;
+        loop {
+            while arr[left_index] < pivot {
+                left_index += 1;
+            }
+
+            while arr[right_index] > pivot {
+                if right_index >= 1 {
+                    right_index -= 1;
+                } else {
+                    break;
+                }
+            }
+
+            if left_index < right_index {
+                arr.swap(left_index, right_index);
+                left_index += 1;
+                continue;
+            }
+
+            break;
+        }
+
+        // last step
+        arr.swap(left_index, pivot_index);
+
+        // left index is where pivot data is located.
+        left_index
+    }
+}
+
+#[test]
+pub fn test_quick_sort() {
+    let arr = Box::new([5, 1, 2, 5, 6, 5]);
+    let size = arr.len();
+    let mut quick = QuickSorter::_new(arr);
+
+    quick._quick_sort(0, size - 1);
+
+    println!("{:?}", quick);
+}
