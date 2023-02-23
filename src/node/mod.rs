@@ -83,11 +83,12 @@ where
         // &item
         &None
     }
-
+    //todo
+    //fix to if let some() pattern
     fn add(&mut self, data: T) {
         // fisrt adding
         if let None = self.first {
-            let node = Node::new(data, 0);
+            let node = Node::new(data);
             let smart_pt = Rc::new(RefCell::new(node));
             self.first = Some(Rc::clone(&smart_pt));
             self.current = Some(smart_pt);
@@ -95,7 +96,7 @@ where
             return;
         }
 
-        let node = RefCell::new(Node::new(data, self.len + 1));
+        let node = RefCell::new(Node::new(data));
         let smart_pt = Rc::new(node);
 
         let current_node = self.current.clone().unwrap();
@@ -106,7 +107,9 @@ where
 
         self.current = Some(smart_pt);
     }
-
+    
+    //todo
+    //fix to if let some() pattern
     fn read(&self, mut index: usize) -> Option<Rc<RefCell<Node<T>>>> {
         if let None = self.current {
             return None;
