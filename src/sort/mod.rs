@@ -82,12 +82,12 @@ fn _get_test_arr() -> [u8; 12] {
 
 #[derive(Debug)]
 struct QuickSorter {
-    _arr: Box<[u32]>,
+    arr: Box<[u32]>,
 }
 
 impl QuickSorter {
     pub fn _new(arr: Box<[u32]>) -> Self {
-        QuickSorter { _arr: arr }
+        QuickSorter { arr }
     }
 
     pub fn _quick_sort(&mut self, left_index: usize, right_index: usize) {
@@ -106,7 +106,7 @@ impl QuickSorter {
     }
 
     fn _sort_partition(&mut self, mut left_index: usize, mut right_index: usize) -> usize {
-        let arr = &mut self._arr;
+        let arr = &mut self.arr;
 
         let pivot_index = right_index;
         let pivot = arr[pivot_index];
@@ -140,6 +140,29 @@ impl QuickSorter {
         // left index is where pivot data is located.
         left_index
     }
+
+    pub fn _quick_select(
+        &mut self,
+        nth_small_index: usize,
+        left_index: usize,
+        right_index: usize,
+    ) -> u32 {
+        if left_index >= right_index {
+            return self.arr[left_index];
+        }
+
+        let new_pivot_index = self._sort_partition(left_index, right_index);
+
+        if nth_small_index > new_pivot_index {
+            self._sort_partition(left_index, new_pivot_index - 1);
+        } else if nth_small_index < new_pivot_index {
+            self._sort_partition(new_pivot_index + 1, right_index);
+        } else {
+            return self.arr[nth_small_index];
+        }
+
+        0
+    }
 }
 
 #[test]
@@ -151,4 +174,32 @@ pub fn test_quick_sort() {
     quick._quick_sort(0, size - 1);
 
     println!("{:?}", quick);
+}
+
+pub fn is_duplicate_using_sort(arr: &mut [u32]) -> bool {
+    arr.sort_unstable();
+    let mut result = false;
+
+    for (idx, _) in arr.iter().enumerate() {
+        if idx == arr.len() - 1 {
+            break;
+        }
+
+        if arr[idx] == arr[idx + 1] {
+            result = true;
+        }
+    }
+
+    result
+}
+
+#[test]
+fn test_is_duplicate() {
+    let mut arr: [u32; 9] = [5, 4, 1, 2, 3, 5, 1, 2, 3];
+    let flag = is_duplicate_using_sort(&mut arr);
+    println!("{}", flag);
+
+    let mut arr = [6, 5, 4, 3, 2, 1];
+    let flag = is_duplicate_using_sort(&mut arr);
+    println!("{}", flag);
 }

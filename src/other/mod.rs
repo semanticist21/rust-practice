@@ -1,0 +1,108 @@
+pub fn get_largest_multiplied_in_arr(arr: &mut [i32]) -> i32 {
+    if arr.len() < 3 {
+        return 0;
+    }
+
+    if arr.len() == 3 {
+        let mut result = 1;
+        for item in arr {
+            result *= *item;
+        }
+        return result;
+    }
+
+    arr.sort_unstable();
+    let last_idx = arr.len() - 1;
+
+    let result = arr[last_idx - 2] * arr[last_idx - 1] * arr[last_idx];
+
+    result
+}
+
+#[test]
+fn test_largest_mutiplied() {
+    let mut arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    let result = get_largest_multiplied_in_arr(&mut arr);
+
+    println!("{}", result);
+}
+
+pub fn get_empty_num(mut arr: Box<[u32]>) -> Vec<u32> {
+    arr.sort_unstable();
+
+    let mut marker: u32 = 0;
+    let mut result = Vec::with_capacity(arr.len() / 3);
+
+    for (idx, item) in arr.iter().enumerate() {
+        if idx == 0 {
+            marker = item.clone();
+        } else {
+            // if number is same with previous one.
+            if *item == marker {
+                marker += 1;
+                continue;
+            }
+
+            marker += 1;
+
+            if *item == marker {
+                continue;
+            }
+
+            let mut item_copy = item.clone();
+
+            while item_copy != marker {
+                item_copy -= 1;
+                result.push(item_copy);
+            }
+
+            marker = *item;
+        }
+    }
+
+    result
+}
+
+#[test]
+fn test_empty_num() {
+    let box_item: Box<[u32]> = Box::new([1, 2, 3, 11, 5, 6, 7, 8, 8, 10]);
+
+    let result = get_empty_num(box_item);
+    println!("{:?}", result);
+}
+
+fn _find_largest_big_n(arr: Vec<i32>) -> i32 {
+    if arr.len() == 0 {
+        return -1;
+    }
+
+    let mut largest = 0;
+
+    for (idx, item) in arr.iter().enumerate() {
+        if idx == 0 {
+            largest = *item;
+        }
+
+        if *item > largest {
+            largest = *item;
+        }
+    }
+
+    largest
+}
+
+fn _find_largest_big_n2(mut arr: Box<[i32]>) -> i32 {
+    if arr.len() == 0 {
+        return -1;
+    }
+
+    for i in 0..arr.len() {
+        for j in 0..arr.len() {
+            if arr[i] > arr[j] {
+                arr.swap(i, j);
+            }
+        }
+    }
+
+    *arr.last().unwrap()
+}
