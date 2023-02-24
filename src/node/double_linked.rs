@@ -89,7 +89,6 @@ where
             right: self.create_new_empty_node(),
         };
 
-        let ref_cell_item = RefCell::new(new_node);
         let new_node = self.create_node(new_node);
 
         // fix current Node to include new_node info.
