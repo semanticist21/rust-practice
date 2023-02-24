@@ -82,12 +82,12 @@ fn _get_test_arr() -> [u8; 12] {
 
 #[derive(Debug)]
 struct QuickSorter {
-    arr: Box<[u32]>,
+    _arr: Box<[u32]>,
 }
 
 impl QuickSorter {
     pub fn _new(arr: Box<[u32]>) -> Self {
-        QuickSorter { arr }
+        QuickSorter { _arr: arr }
     }
 
     pub fn _quick_sort(&mut self, left_index: usize, right_index: usize) {
@@ -106,7 +106,7 @@ impl QuickSorter {
     }
 
     fn _sort_partition(&mut self, mut left_index: usize, mut right_index: usize) -> usize {
-        let arr = &mut self.arr;
+        let arr = &mut self._arr;
 
         let pivot_index = right_index;
         let pivot = arr[pivot_index];
@@ -148,7 +148,7 @@ impl QuickSorter {
         right_index: usize,
     ) -> u32 {
         if left_index >= right_index {
-            return self.arr[left_index];
+            return self._arr[left_index];
         }
 
         let new_pivot_index = self._sort_partition(left_index, right_index);
@@ -158,7 +158,7 @@ impl QuickSorter {
         } else if nth_small_index < new_pivot_index {
             self._sort_partition(new_pivot_index + 1, right_index);
         } else {
-            return self.arr[nth_small_index];
+            return self._arr[nth_small_index];
         }
 
         0
