@@ -1,8 +1,8 @@
 // Define the Binary Tree data structure
 #[derive(Debug)]
 enum BinaryTree<T> {
-    Empty,
-    Node {
+    _Empty,
+    _Node {
         element: T,
         left: Box<BinaryTree<T>>,
         right: Box<BinaryTree<T>>,
@@ -10,54 +10,63 @@ enum BinaryTree<T> {
 }
 
 // Insert a new element into the Binary Tree
-fn insert<T: Ord>(tree: &mut BinaryTree<T>, element: T) {
+fn _insert<T: Ord>(tree: &mut BinaryTree<T>, element: T) {
     match tree {
-        BinaryTree::Empty => {
-            *tree = BinaryTree::Node {
+        BinaryTree::_Empty => {
+            *tree = BinaryTree::_Node {
                 element,
-                left: Box::new(BinaryTree::Empty),
-                right: Box::new(BinaryTree::Empty),
+                left: Box::new(BinaryTree::_Empty),
+                right: Box::new(BinaryTree::_Empty),
             };
         }
-        BinaryTree::Node { element: e, left, right } => {
+        BinaryTree::_Node {
+            element: e,
+            left,
+            right,
+        } => {
             if element <= *e {
-                insert(left, element);
+                _insert(left, element);
             } else {
-                insert(right, element);
+                _insert(right, element);
             }
         }
     }
 }
 
 // Search for an element in the Binary Tree
-fn search<T: Ord>(tree: &BinaryTree<T>, element: T) -> bool {
+fn _search<T: Ord>(tree: &BinaryTree<T>, element: T) -> bool {
     match tree {
-        BinaryTree::Empty => false,
-        BinaryTree::Node { element: e, left, right } => {
+        BinaryTree::_Empty => false,
+        BinaryTree::_Node {
+            element: e,
+            left,
+            right,
+        } => {
             if element == *e {
                 true
             } else if element < *e {
-                search(left, element)
+                _search(left, element)
             } else {
-                search(right, element)
+                _search(right, element)
             }
         }
     }
 }
 
-fn main() {
+#[test]
+fn test_main() {
     // Create an empty Binary Tree
-    let mut tree = BinaryTree::Empty;
+    let mut tree = BinaryTree::_Empty;
 
     // Insert some elements into the Binary Tree
-    insert(&mut tree, 5);
-    insert(&mut tree, 3);
-    insert(&mut tree, 7);
-    insert(&mut tree, 1);
+    _insert(&mut tree, 5);
+    _insert(&mut tree, 3);
+    _insert(&mut tree, 7);
+    _insert(&mut tree, 1);
 
     // Search for an element in the Binary Tree
     let element_to_search = 7;
-    if search(&tree, element_to_search) {
+    if _search(&tree, element_to_search) {
         println!("{} is in the Binary Tree", element_to_search);
     } else {
         println!("{} is not in the Binary Tree", element_to_search);
