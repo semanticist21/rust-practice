@@ -1,3 +1,5 @@
+use std::{cell::RefCell, rc::Rc};
+
 pub fn get_largest_multiplied_in_arr(arr: &mut [i32]) -> i32 {
     if arr.len() < 3 {
         return 0;
@@ -230,15 +232,15 @@ fn test_hash_map_speed() {
     }
 }
 
-pub fn find_duplicate(arr: &[i32]) -> i32{
+pub fn find_duplicate(arr: &[i32]) -> i32 {
     let mut tortoise = arr[0];
     let mut hare = arr[1];
 
-    loop{
+    loop {
         tortoise = arr[tortoise as usize];
         hare = arr[arr[hare as usize] as usize];
 
-        if tortoise == hare{
+        if tortoise == hare {
             break;
         }
     }
@@ -246,7 +248,7 @@ pub fn find_duplicate(arr: &[i32]) -> i32{
     let mut ptr_1 = arr[0];
     let mut ptr_2 = tortoise;
 
-    while ptr_1 != ptr_2{
+    while ptr_1 != ptr_2 {
         ptr_1 = arr[ptr_1 as usize];
         ptr_2 = arr[ptr_2 as usize];
     }
@@ -255,9 +257,57 @@ pub fn find_duplicate(arr: &[i32]) -> i32{
 }
 
 #[test]
-fn test_duplciate(){
-    let arr = [1,2,3,4,5,5];
+fn test_duplciate() {
+    let arr = [1, 2, 3, 4, 5, 5];
 
     let result = find_duplicate(&arr);
     println!("{}", result);
+}
+
+#[test]
+fn test_box() {
+    let mut a = Box::new("String is string".to_string());
+    let b = Box::clone(&a);
+
+    *a = "hello".to_string();
+
+    println!("{}", a);
+    println!("{}", b);
+}
+
+#[test]
+fn test_rc() {
+    let a = Rc::new(RefCell::new(5));
+    let b = Rc::clone(&a);
+
+    *a.borrow_mut() = 10;
+
+    println!("{:?}", a);
+    println!("{:?}", b);
+}
+
+enum MyEnum {
+    Variant(Vec<i32>),
+    _OtherVariant,
+}
+
+fn modify_collection(enum_var: &mut MyEnum) {
+    if let MyEnum::Variant(ref mut vec) = *enum_var {
+        // let vec = &mut vec;
+        vec.push(1);
+        vec.push(2);
+    }
+}
+
+#[test]
+fn test_modifying() {
+    let mut my_enum = MyEnum::Variant(vec![0]);
+    modify_collection(&mut my_enum);
+    // my_enum now holds Variant([0, 1, 2])
+}
+
+fn get(ref mut item: i32) {}
+
+fn getA(item: &mut i32) {
+
 }
