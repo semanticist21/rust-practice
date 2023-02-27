@@ -1,4 +1,4 @@
-use std::{clone, fmt::Debug};
+use std::fmt::Debug;
 
 #[derive(Debug, Clone)]
 struct PriorityQueue<T>
@@ -70,9 +70,6 @@ where
     }
 
     pub fn has_greater_child(&self, index: usize) -> bool {
-        let mut flag_left = false;
-        let mut flag_right = false;
-
         let child_left_index = PriorityQueue::<T>::get_left_child_index(index);
         let child_right_index = PriorityQueue::<T>::get_right_child_index(index);
         let parent_node_data = &self.data[index];
@@ -82,21 +79,17 @@ where
 
         if let Some(left_item) = left_child_opt {
             if parent_node_data < left_item {
-                flag_left = true;
+                return true;
             }
         }
 
         if let Some(right_item) = right_child_opt {
             if parent_node_data < right_item {
-                flag_right = true;
+                return true;
             }
         }
 
-        if flag_left || flag_right {
-            return true;
-        } else {
-            return false;
-        }
+        false
     }
 
     pub fn get_bigger_child_from_parent_index(&self, index: usize) -> usize {
