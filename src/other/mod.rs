@@ -178,10 +178,10 @@ asdaksdjlasdjasdaksdjlasdjasdaksdjlasdjasdaksdjlasdjasdaksdjlasdj";
 
 #[test]
 fn test_arr_speed() {
-    const STR :String= String::new();
+    const STR: String = String::new();
     let mut arr: [String; _NUM] = [STR; _NUM];
 
-    for i in 0.._LEN{
+    for i in 0.._LEN {
         arr[i] = _TARGET_STRING.to_string();
     }
 
@@ -228,4 +228,36 @@ fn test_hash_map_speed() {
     for i in 0..=_LEN {
         hash_map.remove(&i);
     }
+}
+
+pub fn find_duplicate(arr: &[i32]) -> i32{
+    let mut tortoise = arr[0];
+    let mut hare = arr[1];
+
+    loop{
+        tortoise = arr[tortoise as usize];
+        hare = arr[arr[hare as usize] as usize];
+
+        if tortoise == hare{
+            break;
+        }
+    }
+
+    let mut ptr_1 = arr[0];
+    let mut ptr_2 = tortoise;
+
+    while ptr_1 != ptr_2{
+        ptr_1 = arr[ptr_1 as usize];
+        ptr_2 = arr[ptr_2 as usize];
+    }
+
+    ptr_1
+}
+
+#[test]
+fn test_duplciate(){
+    let arr = [1,2,3,4,5,5];
+
+    let result = find_duplicate(&arr);
+    println!("{}", result);
 }
