@@ -5,5 +5,7 @@ pub mod sort;
 
 pub mod array;
 
-pub mod recursive;
 pub mod node;
+pub mod recursive;
+
+pub mod graph;

@@ -306,8 +306,85 @@ fn test_modifying() {
     // my_enum now holds Variant([0, 1, 2])
 }
 
-fn get(ref mut item: i32) {}
+fn does_fighter_win<T, E>(mut fighter: T, mut opponent: E) -> bool
+where
+    T: Fighter,
+    E: Fighter,
+{
+    loop {
+        // fighter attacks first
+        if opponent.hp() > fighter.attack() {
+            opponent.set_hp(opponent.hp() - fighter.attack());
+        } else {
+            return true;
+        }
 
-fn getA(item: &mut i32) {
+        if fighter.hp() > opponent.attack() {
+            fighter.set_hp(fighter.hp() - opponent.hp());
+        } else {
+            return false;
+        }
+    }
+}
 
+trait Fighter {
+    fn hp(&self) -> u64;
+    fn attack(&self) -> u64;
+    fn set_hp(&mut self, set_value: u64);
+
+    fn fight<T: Fighter>(&mut self, opponent: T) {
+        self.set_hp(self.hp() - opponent.attack());
+    }
+}
+
+#[derive(Clone)]
+struct KkoBuGi {
+    hp: u64,
+    attack: u64,
+}
+
+impl Fighter for KkoBuGi {
+    fn hp(&self) -> u64 {
+        self.hp
+    }
+
+    fn attack(&self) -> u64 {
+        self.attack
+    }
+
+    fn set_hp(&mut self, set_value: u64) {
+        self.hp = set_value;
+    }
+}
+
+#[derive(Clone)]
+struct Pierie {
+    hp: u64,
+    attack: u64,
+}
+
+impl Fighter for Pierie {
+    fn hp(&self) -> u64 {
+        self.hp
+    }
+
+    fn attack(&self) -> u64 {
+        self.attack
+    }
+
+    fn set_hp(&mut self, set_value: u64) {
+        self.hp = set_value;
+    }
+}
+
+#[test]
+fn test_fight() {
+    let kkobuk = KkoBuGi { hp: 44, attack: 48 };
+    let pierie = Pierie { hp: 39, attack: 52 };
+
+    let flag = does_fighter_win(kkobuk.clone(), pierie.clone());
+    println!("{}", flag);
+
+    let flag = does_fighter_win(pierie, kkobuk);
+    println!("{}", flag);
 }
