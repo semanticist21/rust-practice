@@ -61,8 +61,6 @@ impl Graph {
     }
 
     pub fn search_dfs(&mut self, result: &mut Vec<String>) {
-        let performance_start = Instant::now();
-
         // insert self label
         let borrowed = RefCell::borrow(&self.current);
         let key = borrowed.label.clone();
@@ -82,15 +80,9 @@ impl Graph {
             self.current = Rc::clone(value);
             self.search_dfs(result);
         }
-
-        let performacne_end = Instant::now();
-
-        println!("{:?}", performance_start - performacne_end);
     }
 
     pub fn search_bfs(&mut self, result: &mut Vec<String>) {
-        let performance_start = Instant::now();
-
         // insert inital key
         let borrowed = self.current.borrow();
         result.push(borrowed.label.clone());
@@ -113,30 +105,63 @@ impl Graph {
                 continue;
             }
         }
-        let performacne_end = Instant::now();
-
-        println!("{:?}", performance_start - performacne_end);
     }
 }
 
 #[test]
 fn test_graph() {
     let vertex1 = Vertex::new("Lux".to_string());
+    let mut graph = Graph::new(vertex1);
+
+    for i in 0..1000 {
+        let str = format!("{}{}", "lux", i);
+        let vertex1 = Vertex::new(str);
+        graph.insert_neighbor(vertex1);
+    }
+
     let vertex2 = Vertex::new("Tom".to_string());
     let vertex3 = Vertex::new("Jenkins".to_string());
-    let vertex4 = Vertex::new("Jamie".to_string());
-
-    let mut graph = Graph::new(vertex1);
+    let vertex5 = Vertex::new("Jamie1".to_string());
+    let vertex6 = Vertex::new("Jamie2".to_string());
+    let vertex7 = Vertex::new("Jamie3".to_string());
+    let vertex8 = Vertex::new("Jamie4".to_string());
+    let vertex9 = Vertex::new("Jamie5".to_string());
+    let vertex10 = Vertex::new("Jamie6".to_string());
+    let vertex11 = Vertex::new("Jamie7".to_string());
+    let vertex12 = Vertex::new("Jamie8".to_string());
+    let vertex13 = Vertex::new("Jamie9".to_string());
+    let vertex14 = Vertex::new("Jamie10".to_string());
+    let vertex4 = Vertex::new("Jamie11".to_string());
 
     graph.insert_neighbor(vertex2);
     graph.insert_neighbor(vertex3);
     graph.insert_neighbor(vertex4);
+    graph.insert_neighbor(vertex5);
+    graph.insert_neighbor(vertex6);
+    graph.insert_neighbor(vertex7);
+    graph.insert_neighbor(vertex8);
+    graph.insert_neighbor(vertex9);
+    graph.insert_neighbor(vertex10);
+    graph.insert_neighbor(vertex11);
+    graph.insert_neighbor(vertex12);
+    graph.insert_neighbor(vertex13);
+    graph.insert_neighbor(vertex14);
+
+    let performance_start = Instant::now();
 
     let mut vec = vec![];
     graph.search_dfs(&mut vec);
     println!("{:?}", vec);
 
+    let performance_end = Instant::now();
+    println!("{:?}", performance_start - performance_end);
+
+    let performance_start = Instant::now();
+
     let mut vec = vec![];
     graph.search_bfs(&mut vec);
     println!("{:?}", vec);
+
+    let performance_end = Instant::now();
+    println!("{:?}", performance_start - performance_end);
 }
