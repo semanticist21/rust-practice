@@ -388,3 +388,21 @@ fn test_fight() {
     let flag = does_fighter_win(pierie, kkobuk);
     println!("{}", flag);
 }
+
+fn reverse(arr: &mut [u64]) {
+    for i in 0..arr.len() {
+        if i > (arr.len() - 1) / 2 {
+            continue;
+        }
+
+        arr.swap(i, arr.len() - 1 - i);
+    }
+}
+
+#[test]
+fn test_reverse() {
+    let mut arr: [u64; 10] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    reverse(&mut arr);
+
+    println!("{:?}", arr);
+}
