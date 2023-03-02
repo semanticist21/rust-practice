@@ -248,7 +248,7 @@ fn test_fibbonachi() {
     let result = get_fibonnachi_hash(66, &mut HashMap::new());
     println!("{:?}", result);
 
-    let iem = vec![
+    let item = vec![
         "".to_string(),
         "".to_string(),
         "".to_string(),

@@ -1,5 +1,7 @@
 use std::{cell::RefCell, rc::Rc};
 
+pub mod greedy;
+
 pub fn get_largest_multiplied_in_arr(arr: &mut [i32]) -> i32 {
     if arr.len() < 3 {
         return 0;
@@ -406,3 +408,4 @@ fn test_reverse() {
 
     println!("{:?}", arr);
 }
+
