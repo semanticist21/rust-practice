@@ -202,4 +202,10 @@ fn test_is_duplicate() {
     let mut arr = [6, 5, 4, 3, 2, 1];
     let flag = is_duplicate_using_sort(&mut arr);
     println!("{}", flag);
+
+    fn test() {
+        println!("asd");
+    }
+
+    test();
 }
