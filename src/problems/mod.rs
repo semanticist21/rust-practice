@@ -2,6 +2,10 @@ use std::default;
 
 use crate::structure::other::greedy::is_anagram;
 
+mod roman;
+mod water_container;
+mod longest;
+
 pub fn is_palindrome(x: i32) -> bool {
     if x < 0 {
         return false;
@@ -123,7 +127,7 @@ pub fn roman_to_int_other(s: String) -> i32 {
     let chars = s.chars().collect::<Vec<char>>();
     let mut nums = vec![];
     let mut result = 0;
-    
+
     nums.push(get_num(*chars.first().unwrap()));
 
     for i in 1..chars.len() {
