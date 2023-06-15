@@ -4,7 +4,7 @@ fn add_sum() {
     let mut buffer = String::new();
     io::stdin().read_line(&mut buffer).expect("failed to read");
 
-    let num_map 
+    let answer 
     = buffer
     .trim()
     .split(' ')
@@ -12,5 +12,5 @@ fn add_sum() {
     .reduce(|a,c| a+c)
     .unwrap();
 
-    println!("{}", num_map);
+    println!("{}", answer);
 }

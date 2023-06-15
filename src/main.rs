@@ -1,9 +1,4 @@
-use std::{cell::RefCell, rc::Rc, thread::current};
+use std::io;
 
 fn main() {
-    loop {}
 }
-
-// leet code
-
-
